@@ -2,13 +2,14 @@ version: '3'
 
 services:
   pmwiki:
+    build: .
     container_name: ${APP_NAME}
     image: php:8.2-apache
     user: "${UID}:${GID}"
     restart: unless-stopped
     volumes:
       - "./site:/var/www/html/"
-      # - "./default.conf:/etc/nginx/sites-available/default"
+      - "./server.conf:/etc/apache/sites-enabled/server.conf"
     ports:
       - "${APP_DOCK_PORT}:80"
 
