@@ -4,11 +4,11 @@ services:
   pmwiki:
     container_name: ${APP_NAME}
     image: php:8.2-apache
+    user: "${UID}:${GID}"
     restart: unless-stopped
-    environment:
-      - TZ="${TZ}"
     volumes:
       - "./site:/var/www/html/"
       # - "./default.conf:/etc/nginx/sites-available/default"
     ports:
       - "${APP_DOCK_PORT}:80"
+
