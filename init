@@ -1,0 +1,22 @@
+#!/bin/bash
+available='/etc/nginx/sites-available'
+enabled='/etc/nginx/sites-enabled'
+# file='wiki.liecorp.id'
+file='pmwiki.conf'
+
+test -f .env
+if test $? -eq 0; then
+    . <(varcat .env)
+    sed -e "s/PMWIKI_URL/$PMWIKI_URL/" \
+        -e "s/PMWIKI_CERTS_PARAMS/$PMWIKI_CERTS_PARAMS/" \
+        -e "s/APP_DOCK_PORT/$APP_DOCK_PORT/" \
+        $file \
+        | sudo tee "$available/${APP_NAME}.conf" > /dev/null
+
+    #sudo cp "$file" "$available/$file"
+    sudo ln -sf "$available/${APP_NAME}.conf" "$enabled/"
+else
+    echo "No .env file set!"
+    exit 1
+fi
+
