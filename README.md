@@ -39,6 +39,18 @@ The following variables are used:
 You may need to download your own copy of [`pmwiki`](https://www.pmwiki.org/wiki/PmWiki/Download).
 Extract the content to `./site` directory, and follow the installation directive.
 
+Then run `./init` to generate your nginx config file and send it to `/etc/nginx/sites-available/`.
+It would also be symlinked to `/etc/nginx/sites-enabled/`.
+Afterwards you want to check your configuration, and restart your nginx service.
+
+```bash
+# Check if the config file is good
+sudo nginx -t
+
+# If everything is ok, restart nginx service
+sudo systemctl restart nginx
+```
+
 Once everything is good and configured properly, run the following with docker compose:
 
 ```bash
@@ -48,4 +60,6 @@ docker compose up -d
 # Shut down the container
 docker compose down
 ```
+
+Open your web browser and check if the site is up and running.
 
