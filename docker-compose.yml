@@ -4,7 +4,8 @@ services:
   pmwiki:
     build: .
     container_name: ${APP_NAME}
-    image: php:8.2-apache
+    # See: https://stackoverflow.com/a/38986676
+    image: liecorp/php-apache:vN827
     user: "${UID}:${GID}"
     restart: unless-stopped
     volumes:
